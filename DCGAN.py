@@ -21,6 +21,13 @@ https://github.com/XavierJiezou/pytorch-dcgan-mnist
 
 
 ROOT=r'F:\NeuralNetworkModel\DCGAN_MNIST\RUN_2'
+'''
+RUN_2
+|----D/
+|----G/
+|----fake_imgs/
+'''
+
 
 
 # 超参数设置
