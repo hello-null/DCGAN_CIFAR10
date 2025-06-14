@@ -16,16 +16,28 @@ from torchsummary import summary
 《UNSUPERVISED REPRESENTATION LEARNING
 WITH DEEP CONVOLUTIONAL
 GENERATIVE ADVERSARIAL NETWORKS》
-https://github.com/XavierJiezou/pytorch-dcgan-mnist
 '''
-
 
 ROOT=r'F:\NeuralNetworkModel\DCGAN_MNIST\RUN_2'
 '''
-RUN_2
-|----D/
-|----G/
-|----fake_imgs/
+你必须先手动创建D、G、fake_imgs文件夹，因为代码需要往文件夹保存图像或权重
+INFO.txt是训练过程中的参数信息，代码自动创建，无需手动创建
+以下是结构视图
+RUN_2/
+|   INFO.txt
+├── D/
+│   ├── xxx.pth
+│   ├── xxx.pth
+│   └── ...
+├── G/
+│   ├── xxx.pth
+│   ├── xxx.pth
+│   └── ...
+├── fake_imgs/
+│   ├── xxx.jpg
+│   ├── xxx.jpg
+│   └── ...
+└── ...
 '''
 
 
@@ -213,6 +225,7 @@ if __name__ == '__main__':
             loss4.backward()
             optimizerG.step()
 
+        # 打印并保存日志信息
         tm_end = time.time()
         str_train = 'epoch={} lr={:.8f} D_loss={:.3f} G_loss={:.3f} cost_time_m={:.3f}\n'.format(
             epoch,
@@ -228,6 +241,7 @@ if __name__ == '__main__':
         torch.save(netD.state_dict(), ROOT+'\\D\\dict_epoch_{}.pth'.format(epoch))
         torch.save(netG.state_dict(), ROOT+'\\G\\dict_epoch_{}.pth'.format(epoch))
 
+        # 保存生成的虚假图像
         with torch.no_grad():
             noise = torch.randn((64, Params.nz, 1, 1), device=device)  # torch.Size([32, 100, 1, 1])
             fake = netG(noise).detach().cpu()
