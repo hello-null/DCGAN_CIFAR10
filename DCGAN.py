@@ -228,21 +228,12 @@ if __name__ == '__main__':
         torch.save(netD.state_dict(), ROOT+'\\D\\dict_epoch_{}.pth'.format(epoch))
         torch.save(netG.state_dict(), ROOT+'\\G\\dict_epoch_{}.pth'.format(epoch))
 
-        # with torch.no_grad():
-        #     noise = torch.randn((64, Params.nz, 1, 1), device=device)
-        #     fake = netG(noise).detach().cpu()
-        # a1 = make_grid(fake * 0.5 + 0.5, nrow=8)
-        # fig = plt.figure(figsize=(20,20))
-        # plt.imshow(a1.permute(1, 2, 0))
-        # plt.axis("off")
-        # plt.show()
-
         with torch.no_grad():
             noise = torch.randn((64, Params.nz, 1, 1), device=device)  # torch.Size([32, 100, 1, 1])
             fake = netG(noise).detach().cpu()
         grid = make_grid(
             fake*0.5+0.5,
-            nrow=8,  # 每行4张
+            nrow=8,  # 每行8张
         )
         plt.figure(figsize=(12,12))
         plt.imshow(grid.permute(1,2,0).numpy())
